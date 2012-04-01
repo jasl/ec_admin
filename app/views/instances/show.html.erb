@@ -1,45 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="span12">
+  <h2><a href="<%= @instance.url if @instance.normal? %>"><%= @instance.name %></a></h2>
 
-<p>
-  <b>Name:</b>
-  <%= @instance.name %>
-</p>
+  <div id="instance_info" class="accordion">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a href="#base_info" data-parent="#instance_info" data-toggle="collapse" class="accordion-toggle">
+          备注
+        </a>
+      </div>
+      <div class="accordion-body in collapse" id="base_info" style="height: auto;">
+        <div class="accordion-inner">
+          <p><%= @instance.note %></p>
+        </div>
+      </div>
+    </div>
+    <% if can? :manage, Instance %>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a href="#db_info" data-parent="#instance_info" data-toggle="collapse" class="accordion-toggle">
+            数据库信息
+          </a>
+        </div>
+        <div class="accordion-body collapse" id="db_info" style="height: 0px;">
+          <div class="accordion-inner">
+            <div class="info">
+              <ul>
+                <li><span>主机</span><%= @instance.db_host %></li>
+                <li><span>端口</span><%= @instance.db_port %></li>
+                <li><span>数据库名</span><%= @instance.db_name %></li>
+                <li><span>登录用户</span><%= @instance.db_user %></li>
+                <li><span>登录密码</span><%= @instance.db_passwd %></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<p>
-  <b>Url:</b>
-  <%= @instance.url %>
-</p>
-
-<p>
-  <b>Db host:</b>
-  <%= @instance.db_host %>
-</p>
-
-<p>
-  <b>Db port:</b>
-  <%= @instance.db_port %>
-</p>
-
-<p>
-  <b>Db name:</b>
-  <%= @instance.db_name %>
-</p>
-
-<p>
-  <b>Db user:</b>
-  <%= @instance.db_user %>
-</p>
-
-<p>
-  <b>Db passwd:</b>
-  <%= @instance.db_passwd %>
-</p>
-
-<p>
-  <b>Note:</b>
-  <%= @instance.note %>
-</p>
-
-
-<%= link_to 'Edit', edit_instance_path(@instance) %> |
-<%= link_to 'Back', instances_path %>
+  <% if @instance.normal? %>
+    <% if can? :manage, Instance %>
+      <a href="<%= edit_instance_path %>" class="btn">修改</a>
+      <a href="<%= instance_path %>" data-confirm="注意！删除操作无法撤销！" data-method="delete" class="btn btn-danger">
+        删除
+      </a>
+      |
+    <% end %>
+    <a href="<%= backup_instance_path %>" class="btn">备份</a>
+    <a href="<%= reset_passwd_instance_path %>" class="btn">重置密码</a>
+    <a href="<%= clear_instance_path %>" data-confirm="注意！清空操作无法撤销！" class="btn btn-danger">
+      完全重置
+    </a>
+  <% end %>
+</div>

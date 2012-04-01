@@ -9,6 +9,7 @@ class CreateInstances < ActiveRecord::Migration
       t.string :db_user
       t.string :db_passwd
       t.text :note
+      t.string :state, :default => 'normal'
 
       t.timestamps
     end

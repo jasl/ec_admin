@@ -3,11 +3,19 @@
   <li <%= 'class="active"' if controller_name == 'main' and action_name == 'dashboard' %>>
     <a href="<%= root_path %>">主面板</a>
   </li>
-  <li class="nav-header">ECStore实例管理</li>
-  <li <%= 'class="active"' if controller_name == 'instances' and action_name == 'index' %>>
-    <a href="<%= instances_path %>">操作</a>
-  </li>
-  <li <%= 'class="active"' if controller_name == 'instances' and action_name == 'new' %>>
-    <a href="<%= new_instance_path %>">新建实例</a>
-  </li>
+  <% if user_signed_in? %>
+    <li class="nav-header">ECStore实例管理</li>
+    <li <%= 'class="active"' if controller_name == 'instances' and action_name == 'index' %>>
+      <a href="<%= instances_path %>">操作</a>
+    </li>
+    <% if can? :manage, Instance %>
+      <li <%= 'class="active"' if controller_name == 'instances' and action_name == 'new' %>>
+        <a href="<%= new_instance_path %>">新建实例</a>
+      </li>
+    <% end %>
+  <% else %>
+    <li <%= 'class="active"' if controller_name == 'sessions' and action_name == 'new' %>>
+      <a href="<%= new_user_session_path %>">登录</a>
+    </li>
+  <% end %>
 </ul>

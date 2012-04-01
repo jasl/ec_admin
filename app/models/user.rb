@@ -14,4 +14,9 @@ class User < ActiveRecord::Base
   def admin?
     Setting.admin_emails.include?(self.email) ? true : false
   end
+
+  def self.find_for_authentication(conditions)
+    conditions[:state] = true
+    super
+  end
 end

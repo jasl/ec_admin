@@ -2,9 +2,29 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 zh-CN:
-  email: "E-mail"
-  password: "密码"
-  remember_me: "记住我"
-  password_confirmation: "确认密码"
-  current_password: "当前密码"
-  user_name: "姓名"
+  activerecord:
+    models:
+      user: "用户"
+      instance: "ECStore实例"
+    attributes:
+      user:
+        email: "E-mail"
+        name: "姓名"
+        password: "密码"
+        remember_me: "记住我"
+        password_confirmation: "确认密码"
+        current_password: "当前密码"
+      instance:
+        name: "别名"
+        url: "网址"
+        db_host: "数据库地址"
+        db_port: "数据库端口"
+        db_name: "数据库名"
+        db_user: "数据库登录名"
+        db_passwd: "数据库密码"
+        note: "备注"
+    notices:
+      template:
+        created: "%{model}创建成功。"
+        updated: "%{model}更新成功。"
+        destroyed: "%{model}删除成功。"

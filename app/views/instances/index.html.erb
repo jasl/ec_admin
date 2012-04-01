@@ -1,37 +1,44 @@
-<h1>Listing instances</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Url</th>
-    <th>Db host</th>
-    <th>Db port</th>
-    <th>Db name</th>
-    <th>Db user</th>
-    <th>Db passwd</th>
-    <th>Note</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @instances.each do |instance| %>
-  <tr>
-    <td><%= instance.name %></td>
-    <td><%= instance.url %></td>
-    <td><%= instance.db_host %></td>
-    <td><%= instance.db_port %></td>
-    <td><%= instance.db_name %></td>
-    <td><%= instance.db_user %></td>
-    <td><%= instance.db_passwd %></td>
-    <td><%= instance.note %></td>
-    <td><%= link_to 'Show', instance %></td>
-    <td><%= link_to 'Edit', edit_instance_path(instance) %></td>
-    <td><%= link_to 'Destroy', instance, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<%= content_for :head do%>
+  <%= javascript_include_tag controller_name %>
 <% end %>
-</table>
 
-<br />
+<div class="span12">
+  <h1>全部实例</h1>
 
-<%= link_to 'New Instance', new_instance_path %>
+  <form method="post" action="#" id="form_opt">
+    <div style="margin:0;padding:0;display:inline">
+      <input type="hidden" value="✓" name="utf8" />
+      <input type="hidden" value="post" name="_method" />
+      <input type="hidden" value="<%= form_authenticity_token %>" name="<%= request_forgery_protection_token %>" />
+    </div>
+    <table class="table">
+      <tr>
+        <th style="width: 20%">Name</th>
+        <th style="width: 65%">Note</th>
+        <th style="width: 5%"></th>
+        <th style="width: 5%"></th>
+        <th style="width: 5%"><input type="checkbox" id="cbx_check_all"/></th>
+      </tr>
+      <% @instances.each do |instance| %>
+        <tr>
+          <% if instance.normal? %>
+          <td><%= link_to instance.name, instance %></td>
+          <td><%= truncate instance.note, :length => 25 %></td>
+          <td class="cell_center"><a href="<%= instance.url %>">访问</a></td>
+          <td class="cell_center">正常</td>
+          <td class="cell_center"><input type="checkbox" name="instance[]" value="<%= instance.id %>"/></td>
+          <% else %>
+            <td><%= instance.name %></td>
+            <td><%= truncate instance.note, :length => 25 %></td>
+            <td class="cell_center"></td>
+            <td class="cell_center">锁定</td>
+            <td class="cell_center"></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+    <input type="button" value="备份" class="btn" name="backup" id="btn_backup"/>
+    <input type="button" value="重置密码" class="btn" name="reset_passwd" id="btn_reset_passwd"/>
+    <input type="button" value="完全重置" class="btn btn-danger" name="clear" id="btn_clear"/>
+  </form>
+</div>

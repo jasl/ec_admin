@@ -22,8 +22,9 @@ ActiveRecord::Schema.define(:version => 20120401152954) do
     t.string   "db_user"
     t.string   "db_passwd"
     t.text     "note"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "state",      :default => "normal"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|

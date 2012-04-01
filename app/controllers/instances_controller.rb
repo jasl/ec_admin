@@ -1,8 +1,10 @@
 class InstancesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /instances
   # GET /instances.json
   def index
-    @instances = Instance.all
+    #@instances = Instance.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +15,7 @@ class InstancesController < ApplicationController
   # GET /instances/1
   # GET /instances/1.json
   def show
-    @instance = Instance.find(params[:id])
+    #@instance = Instance.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +26,7 @@ class InstancesController < ApplicationController
   # GET /instances/new
   # GET /instances/new.json
   def new
-    @instance = Instance.new
+    #@instance = Instance.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +36,13 @@ class InstancesController < ApplicationController
 
   # GET /instances/1/edit
   def edit
-    @instance = Instance.find(params[:id])
+    #@instance = Instance.find(params[:id])
   end
 
   # POST /instances
   # POST /instances.json
   def create
-    @instance = Instance.new(params[:instance])
+    #@instance = Instance.new(params[:instance])
 
     respond_to do |format|
       if @instance.save
@@ -56,7 +58,7 @@ class InstancesController < ApplicationController
   # PUT /instances/1
   # PUT /instances/1.json
   def update
-    @instance = Instance.find(params[:id])
+    #@instance = Instance.find(params[:id])
 
     respond_to do |format|
       if @instance.update_attributes(params[:instance])
@@ -72,12 +74,24 @@ class InstancesController < ApplicationController
   # DELETE /instances/1
   # DELETE /instances/1.json
   def destroy
-    @instance = Instance.find(params[:id])
+    #@instance = Instance.find(params[:id])
     @instance.destroy
 
     respond_to do |format|
       format.html { redirect_to instances_url }
       format.json { head :no_content }
     end
+  end
+
+  def clear
+
+  end
+
+  def backup
+
+  end
+
+  def reset_passwd
+
   end
 end

@@ -10,13 +10,13 @@
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :email, t(:email), :class => 'control-label' %>
+            <%= f.label :email, :class => 'control-label' %>
             <div class="controls">
               <%= f.email_field :email, :class => 'input-large' %>
             </div>
           </div>
           <div class="control-group">
-            <%= f.label :password, t(:password), :class => 'control-label' %>
+            <%= f.label :password, :class => 'control-label' %>
             <div class="controls">
               <%= f.password_field :password, :class => 'input-large' %>
             </div>
@@ -24,7 +24,9 @@
           <% if devise_mapping.rememberable? -%>
             <div class="control-group">
               <div class="controls">
-                <label class="checkbox" for="<%= :remember_me %>"><%= f.check_box :remember_me %><%= t(:remember_me) %></label>
+                <label class="checkbox" for="<%= :remember_me %>"><%= f.check_box :remember_me %>
+                  <%= t('activerecord.attributes.user.remember_me') %>
+                </label>
               </div>
             </div>
           <% end -%>

@@ -15,6 +15,7 @@ RailsAdmin.config do |config|
     :admin
   end
 
+
   # If you want to track changes on your models:
   # config.audit_with :history, User
 

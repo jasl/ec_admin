@@ -1,3 +1,15 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ->
+  $("#btn_backup, #btn_clear, #btn_reset_passwd").click ->
+    $("#form_opt").attr("action", "/instances/#{ this.name }")
+    $("#form_opt").submit()
+  $("#cbx_check_all").click ->
+    if this.checked
+      $("input[name='instance[]']").each( ->
+        this.checked = true
+        return
+      )
+    else
+      $("input[name='instance[]']").each( ->
+        this.checked = false
+        return
+      )
