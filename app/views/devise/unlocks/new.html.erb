@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span8">
+      <div class="box">
+        <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name),
+                     :html => { :method => :post, :class => 'form-horizontal' }) do |f| %>
+            <fieldset>
+              <legend><%= t("common.confirm_user") %></legend>
+              <div class="row row-grid">
+                <div class="span6 offset1">
+                  <%= print_error_messages resource %>
+                </div>
+              </div>
+              <div class="control-group">
+                <%= f.label :email, t(:email), :class => 'control-label' %>
+                <div class="controls">
+                  <%= f.email_field :email, :class => 'input-large' %>
+                </div>
+              </div>
+              <div class="form-actions" >
+                <%= f.submit "发送解锁邮件", :class => 'btn btn-primary', :disable_with => '正在发送' %>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="span4">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">
+            其他选项
+          </li>
+          <%= render :partial => "devise/links" %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
