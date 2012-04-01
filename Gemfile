@@ -17,6 +17,8 @@ gem 'rails-i18n'
 
 gem 'bootstrap-sass'
 
+gem 'cells'
+
 gem 'resque'
 
 # Gems used only for assets and not required

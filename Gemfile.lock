@@ -52,6 +52,9 @@ GEM
     bootstrap-sass (2.0.2)
     builder (3.0.0)
     cancan (1.6.7)
+    cells (3.8.3)
+      actionpack (~> 3.0)
+      railties (~> 3.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -170,6 +173,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   cancan
+  cells
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
