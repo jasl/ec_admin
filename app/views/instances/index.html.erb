@@ -1,0 +1,37 @@
+<h1>Listing instances</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Url</th>
+    <th>Db host</th>
+    <th>Db port</th>
+    <th>Db name</th>
+    <th>Db user</th>
+    <th>Db passwd</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instances.each do |instance| %>
+  <tr>
+    <td><%= instance.name %></td>
+    <td><%= instance.url %></td>
+    <td><%= instance.db_host %></td>
+    <td><%= instance.db_port %></td>
+    <td><%= instance.db_name %></td>
+    <td><%= instance.db_user %></td>
+    <td><%= instance.db_passwd %></td>
+    <td><%= instance.note %></td>
+    <td><%= link_to 'Show', instance %></td>
+    <td><%= link_to 'Edit', edit_instance_path(instance) %></td>
+    <td><%= link_to 'Destroy', instance, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Instance', new_instance_path %>

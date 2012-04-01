@@ -1,0 +1,49 @@
+<%= form_for(@instance) do |f| %>
+  <% if @instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instance.errors.count, "error") %> prohibited this instance from being saved:</h2>
+
+      <ul>
+      <% @instance.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :db_host %><br />
+    <%= f.text_field :db_host %>
+  </div>
+  <div class="field">
+    <%= f.label :db_port %><br />
+    <%= f.number_field :db_port %>
+  </div>
+  <div class="field">
+    <%= f.label :db_name %><br />
+    <%= f.text_field :db_name %>
+  </div>
+  <div class="field">
+    <%= f.label :db_user %><br />
+    <%= f.text_field :db_user %>
+  </div>
+  <div class="field">
+    <%= f.label :db_passwd %><br />
+    <%= f.text_field :db_passwd %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
