@@ -1,0 +1,12 @@
+defaults: &defaults
+  admin_emails:
+    - "jasl123@126.com"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

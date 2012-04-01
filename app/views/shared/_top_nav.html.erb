@@ -1,0 +1,33 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="<%= root_path %>">ECStore教学管理系统</a>
+      <% if user_signed_in? %>
+        <ul class="nav pull-left">
+          <li><%= link_to('主面板', main_dashboard_path) %></li>
+        </ul>
+      <% end %>
+      <ul class="nav pull-right">
+        <% unless user_signed_in? %>
+          <li><%= link_to('注册', new_user_registration_path) %></li>
+          <li><%= link_to('登录', new_user_session_path) %></li>
+        <% else %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= (current_user.name.blank?) ? current_user.email : current_user.name %>
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <% if can? :manage, :rails_admin %>
+                <li><%= link_to '管理系统', '/admin/' %></li>
+                <li class="divider"></li>
+              <% end %>
+              <li><%= link_to('修改个人资料', edit_user_registration_path) %></li>
+              <li><%= link_to('登出', destroy_user_session_path) %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

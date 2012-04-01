@@ -1,5 +1,10 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
-  hello: "Hello world"
+zh-CN:
+  email: "E-mail"
+  password: "密码"
+  remember_me: "记住我"
+  password_confirmation: "确认密码"
+  current_password: "当前密码"
+  user_name: "姓名"
