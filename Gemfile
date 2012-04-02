@@ -7,6 +7,7 @@ gem 'rails', '~> 3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'mysql2'
 
 gem 'devise'
 gem 'cancan'
@@ -21,6 +22,7 @@ gem 'state_machine'
 
 # gem 'resque' # too highweight so I think this is needn't
 gem 'delayed_job_active_record'
+gem "daemons"
 
 # gem 'quiet_assets', :git => 'git://github.com/AgilionApps/quiet_assets.git'
 

@@ -1,12 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# -*- encoding : utf-8 -*-
+p 'Clearing instance and user records'
 Instance.destroy_all
+User.destroy_all
 
+p 'Generating instance records'
 @host = '192.168.1.5'
 3.times do |i|
   @no = "%03d" % (i+1)
@@ -18,3 +15,12 @@ Instance.destroy_all
                   :db_user => 'root',
                   :db_passwd => ''
 end
+
+p 'Generating user records'
+User.create({:name => '姜军',
+            :email => 'jasl123@126.com',
+            :password => 'aaaaaa',
+            :state => true},
+            :as => :admin)
+
+p 'Seeds generated done'

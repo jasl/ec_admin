@@ -15,17 +15,60 @@ class Instance < ActiveRecord::Base
 
   state_machine :initial => :normal do
     state :locked
+    state :error
 
     event :lock do
       transition :normal => :locked
     end
 
+    event :error do
+      transition [:normal, :locked] => :error
+    end
+
     event :available do
-      transition :locked => :normal
+      transition [:locked, :error] => :normal
     end
   end
 
   scope :normal, with_state(:normal)
   scope :locked, with_state(:locked)
+  scope :error, with_state(:error)
+
+  def do method
+    self.lock
+
+    case method
+      when :clear
+        self.clear
+      when :backup
+        self.backup
+      when :reset_passwd
+        self.reset_passwd
+      else
+        self.available
+    end
+  end
+
+  def clear
+    sleep(5)
+
+    self.available
+  end
+
+  def backup
+    sleep(5)
+
+    self.available
+  end
+
+  def reset_passwd
+    sleep(5)
+
+    self.available
+  end
+
+  handle_asynchronously :clear, :queue => 'instances'
+  handle_asynchronously :backup, :queue => 'instances'
+  handle_asynchronously :reset_passwd, :queue => 'instances'
 
 end

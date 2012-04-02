@@ -1,0 +1,15 @@
+<tr>
+  <% if instance.normal? %>
+    <td><%= link_to instance.name, instance %></td>
+    <td><%= truncate instance.note, :length => 25 %></td>
+    <td class="cell_center" style="color: green;">正常</td>
+    <td class="cell_center"><a href="<%= instance.url %>">访问</a></td>
+    <td class="cell_center"><input type="checkbox" name="instances[]" value="<%= instance.id %>"/></td>
+  <% else %>
+    <td><%= instance.name %></td>
+    <td><%= truncate instance.note, :length => 25 %></td>
+    <td class="cell_center" style="color: red;"><%= instance.locked? ? '锁定' : '故障' %></td>
+    <td class="cell_center"></td>
+    <td class="cell_center"></td>
+  <% end %>
+</tr>

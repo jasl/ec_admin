@@ -1,6 +1,9 @@
 <div class="span12">
-  <h2><a href="<%= @instance.url if @instance.normal? %>"><%= @instance.name %></a></h2>
-
+  <% if @instance.normal? %>
+    <h2><a href="<%= @instance.url %>"><%= @instance.name %></a></h2>
+  <% else %>
+    <h2 style="color: red;"><%= @instance.name %></h2>
+  <% end %>
   <div id="instance_info" class="accordion">
     <div class="accordion-group">
       <div class="accordion-heading">

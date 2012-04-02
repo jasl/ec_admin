@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    daemons (1.1.8)
     delayed_job (3.0.1)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.2)
@@ -95,6 +96,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.18)
     multi_json (1.2.0)
+    mysql2 (0.3.11)
     orm_adapter (0.0.7)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -161,10 +163,12 @@ DEPENDENCIES
   bootstrap-sass
   cancan
   coffee-rails (~> 3.2.1)
+  daemons
   delayed_job_active_record
   devise
   jquery-rails
   kaminari
+  mysql2
   rails (~> 3.2.3)
   rails-i18n
   rails_admin!

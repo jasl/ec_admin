@@ -28,3 +28,6 @@ zh-CN:
         created: "%{model}创建成功。"
         updated: "%{model}更新成功。"
         destroyed: "%{model}删除成功。"
+
+  messages:
+    enqueue: "正在处理，根据操作数量需要数十秒到数分钟时间。"

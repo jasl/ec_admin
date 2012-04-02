@@ -4,12 +4,12 @@ jQuery ->
     $("#form_opt").submit()
   $("#cbx_check_all").click ->
     if this.checked
-      $("input[name='instance[]']").each( ->
+      $("input[name='instances[]']").each( ->
         this.checked = true
         return
       )
     else
-      $("input[name='instance[]']").each( ->
+      $("input[name='instances[]']").each( ->
         this.checked = false
         return
       )

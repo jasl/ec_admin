@@ -1,10 +1,15 @@
+# -*- encoding : utf-8 -*-
 class InstancesController < ApplicationController
   load_and_authorize_resource
+
+  def collection
+    @instances ||= end_of_association_chain.accessible_by(current_ability).page params[:page]
+  end
 
   # GET /instances
   # GET /instances.json
   def index
-    #@instances = Instance.all
+    @instances = Instance.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -84,14 +89,37 @@ class InstancesController < ApplicationController
   end
 
   def clear
-
+    get_instances.each do |instance|
+      instance.do :clear
+      #instance.clear
+    end
+    redirect_to instances_path, :notice => t('messages.enqueue')
   end
 
   def backup
-
+    get_instances.each do |instance|
+      instance.do :backup
+      #instance.backup
+    end
+    redirect_to instances_path, :notice => t('messages.enqueue')
   end
 
   def reset_passwd
+    get_instances.each do |instance|
+      instance.do :reset_passwd
+      #instance.reset_passwd
+    end
+    redirect_to instances_path, :notice => t('messages.enqueue')
+  end
 
+  private
+
+  def get_instances
+    if params.has_key? :instances
+      instances = Instance.where :id => params[:instances]
+    else
+      instances = Instance.where :id => params[:id]
+    end
+    instances
   end
 end
