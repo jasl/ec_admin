@@ -5,7 +5,7 @@ User.destroy_all
 
 p 'Generating instance records'
 @host = '192.168.1.5'
-3.times do |i|
+5.times do |i|
   @no = "%03d" % (i+1)
   Instance.create :name => @no,
                   :url => "http://#{@host}/#{@no}",

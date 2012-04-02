@@ -1,3 +1,4 @@
+require 'fileutils'
 class Instance < ActiveRecord::Base
   attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :name, :note, :url
   attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :name, :note, :url, :state, :as => :admin
@@ -50,19 +51,34 @@ class Instance < ActiveRecord::Base
   end
 
   def clear
-    sleep(5)
+    begin
+
+    rescue => ex
+      self.error
+      logger.error ex
+    end
 
     self.available
   end
 
   def backup
-    sleep(5)
+    begin
+
+    rescue => ex
+      self.error
+      logger.error ex
+    end
 
     self.available
   end
 
   def reset_passwd
-    sleep(5)
+    begin
+
+    rescue => ex
+      self.error
+      logger.error ex
+    end
 
     self.available
   end
