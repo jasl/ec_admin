@@ -19,7 +19,10 @@ gem 'bootstrap-sass'
 
 gem 'state_machine'
 
-gem 'resque'
+# gem 'resque' # too highweight so I think this is needn't
+gem 'delayed_job_active_record'
+
+# gem 'quiet_assets', :git => 'git://github.com/AgilionApps/quiet_assets.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
