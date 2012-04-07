@@ -5,6 +5,7 @@ class Ability
     unless user.nil?
       if user.admin?
         can :manage, :all
+        return
       end
       alias_action :new, :to => :create
       alias_action :edit, :to => :update
@@ -13,6 +14,10 @@ class Ability
       can :backup, Instance
       can :clear, Instance
       can :reset_pass, Instance
+      can :recovery, Instance
+
+      can :read, BackupRecord
+      can :fetch, BackupRecord
     end
 
   end

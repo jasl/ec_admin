@@ -5,14 +5,25 @@ EcAdmin::Application.routes.draw do
   devise_for :users
 
   resources :instances do
-    get 'page/:page', :action => :index, :on => :collection
+    #get 'page/:page', :action => :index, :on => :collection
+
+    get 'clear' => 'instances#clear'
+    get 'backup' => 'instances#backup'
+    get 'reset_passwd' => 'instances#reset_passwd'
+    match 'recovery/:backup_record_id' => 'instances#recovery', :via => :post, :as => 'recovery'
+
+    match 'backup_records' => 'backup_records#index', :via => :get
   end
-  match 'instances/:id/clear' => 'instances#clear', :via => :get, :as => 'clear_instance'
-  match 'instances/:id/backup' => 'instances#backup', :via => :get, :as => 'backup_instance'
-  match 'instances/:id/reset_passwd' => 'instances#reset_passwd', :via => :get, :as => 'reset_passwd_instance'
-  post 'instances/clear' => 'instances#clear'
-  post 'instances/backup' => 'instances#backup'
-  post 'instances/reset_passwd' => 'instances#reset_passwd'
+  match 'instances/clear' => 'instances#clear', :via => :post, :as => 'clear_instances'
+  match 'instances/backup' => 'instances#backup', :via => :post, :as => 'backup_instances'
+  match 'instances/recovery' => 'instances#recovery', :via => :post, :as => 'recovery_instances'
+  match 'instances/reset_passwd' => 'instances#reset_passwd', :via => :post, :as => 'reset_passwd_instances'
+
+  resources :backup_records, :except => [:new, :create] do
+    #get 'page/:page', :action => :index, :on => :collection
+
+    get 'fetch', :to => 'backup_records#fetch'
+  end
 
   get "main/index"
   get "main/dashboard"

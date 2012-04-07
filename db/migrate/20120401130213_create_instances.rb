@@ -3,6 +3,7 @@ class CreateInstances < ActiveRecord::Migration
     create_table :instances do |t|
       t.string :name
       t.string :url
+      t.string :path
       t.string :db_host
       t.integer :db_port
       t.string :db_name

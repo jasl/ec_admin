@@ -6,6 +6,7 @@ zh-CN:
     models:
       user: "用户"
       instance: "ECStore实例"
+      backup_record: "备份记录"
     attributes:
       user:
         email: "E-mail"
@@ -17,12 +18,18 @@ zh-CN:
       instance:
         name: "别名"
         url: "网址"
+        path: "所在路径"
         db_host: "数据库地址"
         db_port: "数据库端口"
         db_name: "数据库名"
         db_user: "数据库登录名"
         db_passwd: "数据库密码"
-        note: "备注"
+        note: "说明"
+      backup_record:
+        name: "别名"
+        note: "说明"
+        created_at: "创建时间"
+        file: "文件名"
     notices:
       template:
         created: "%{model}创建成功。"
@@ -30,4 +37,4 @@ zh-CN:
         destroyed: "%{model}删除成功。"
 
   messages:
-    enqueue: "正在处理，根据操作数量需要数十秒到数分钟时间。"
+    enqueue: "正在处理，根据操作数量需要数十秒到数分钟时间。刷新可显示当前操作结果。"

@@ -1,17 +1,20 @@
 # -*- encoding : utf-8 -*-
+host = '127.0.0.1:8080'
+db_host = '127.0.0.1'
+
 p 'Clearing instance and user records'
 Instance.destroy_all
 User.destroy_all
 
 p 'Generating instance records'
-@host = '192.168.1.5'
 5.times do |i|
-  @no = "%03d" % (i+1)
-  Instance.create :name => @no,
-                  :url => "http://#{@host}/#{@no}",
-                  :db_host => @host,
+  no = "%03d" % (i+1)
+  Instance.create :name => no,
+                  :url => "http://#{host}/#{no}/",
+                  :path => no,
+                  :db_host => db_host,
                   :db_port => 3306,
-                  :db_name => "ecstore#{@no}",
+                  :db_name => "ecstore#{no}",
                   :db_user => 'root',
                   :db_passwd => ''
 end

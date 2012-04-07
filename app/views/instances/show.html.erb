@@ -1,6 +1,6 @@
 <div class="span12">
   <% if @instance.normal? %>
-    <h2><a href="<%= @instance.url %>"><%= @instance.name %></a></h2>
+    <h2><a href="<%= @instance.url %>" target="_blank"><%= @instance.name %></a></h2>
   <% else %>
     <h2 style="color: red;"><%= @instance.name %></h2>
   <% end %>
@@ -21,13 +21,14 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a href="#db_info" data-parent="#instance_info" data-toggle="collapse" class="accordion-toggle">
-            数据库信息
+            详细信息
           </a>
         </div>
         <div class="accordion-body collapse" id="db_info" style="height: 0px;">
           <div class="accordion-inner">
             <div class="info">
               <ul>
+                <li><span>路径</span><%= @instance.path %></li>
                 <li><span>主机</span><%= @instance.db_host %></li>
                 <li><span>端口</span><%= @instance.db_port %></li>
                 <li><span>数据库名</span><%= @instance.db_name %></li>
@@ -43,16 +44,16 @@
 
   <% if @instance.normal? %>
     <% if can? :manage, Instance %>
-      <a href="<%= edit_instance_path %>" class="btn">修改</a>
-      <a href="<%= instance_path %>" data-confirm="注意！删除操作无法撤销！" data-method="delete" class="btn btn-danger">
-        删除
-      </a>
+      <%= link_to '修改', edit_instance_path, :class => 'btn' %>
+      <%= link_to '删除', @instance, :class => 'btn btn-danger', :confirm => '注意！删除操作无法撤销！', :method => :delete %>
       |
     <% end %>
-    <a href="<%= backup_instance_path %>" class="btn">备份</a>
-    <a href="<%= reset_passwd_instance_path %>" class="btn">重置密码</a>
-    <a href="<%= clear_instance_path %>" data-confirm="注意！清空操作无法撤销！" class="btn btn-danger">
-      完全重置
-    </a>
+    <%= link_to '备份', instance_backup_path(@instance.id), :class => 'btn' %>
+    <%= link_to '还原', instance_backup_records_path(@instance.id),
+                :class => 'btn btn-danger', :confirm => '注意！还原操作无法撤销！请注意备份。' %>
+    <%= link_to '重置密码', instance_reset_passwd_path(@instance.id),
+                :class => 'btn btn-warning', :confirm => '注意！管理员密码将被重置为"admin"' %>
+    <%= link_to '完全重置', instance_clear_path(@instance.id),
+                :class => 'btn btn-danger', :confirm => '注意！完全重置操作无法撤销！请注意备份。' %>
   <% end %>
 </div>

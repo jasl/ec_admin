@@ -1,0 +1,47 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'backup_records' %>
+<% end %>
+<% flag = params.has_key? :instance_id %>
+
+<div class="span12">
+  <h1>全部备份记录</h1>
+
+  <% if flag %>
+    <form method="post" action="/instances/<%= params[:instance_id] %>/" id="form_choice">
+      <div style="margin:0;padding:0;display:inline">
+        <input type="hidden" value="✓" name="utf8"/>
+        <input type="hidden" value="post" name="_method"/>
+        <input type="hidden" value="<%= form_authenticity_token %>" name="<%= request_forgery_protection_token %>"/>
+      </div>
+  <% end %>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <% if params.has_key? :instance_id %>
+        <th style="width: 5%"></th>
+      <% end %>
+      <th style="width: 20%">名称</th>
+      <th style="width: 55%">说明</th>
+      <th style="width: 15%">创建时间</th>
+      <th style="width: 5%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @backup_records.each do |backup_record| %>
+      <%= render backup_record %>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="5">
+        <%= paginate @backup_records %>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  <% if flag %>
+    <input type="button" value="还原" class="btn btn-danger" name="btn_recovery" id="btn_recovery"/>
+  </form>
+  <% end %>
+</div>

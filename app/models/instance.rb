@@ -1,8 +1,19 @@
-require 'fileutils'
+# -*- encoding : utf-8 -*-
 class Instance < ActiveRecord::Base
-  attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :name, :note, :url
-  attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :name, :note, :url, :state, :as => :admin
-  validates :db_name, :url, :presence => true
+
+  class ExistPathValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      unless File.directory? "#{Setting.ec_tools[:http_dir]}/#{value}"
+        record.errors.add attribute, "#{attribute}必须是存在的目录"
+      end
+    end
+  end
+
+  attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :path, :name, :note, :url
+  attr_accessible :db_host, :db_name, :db_passwd, :db_port, :db_user, :path, :name, :note, :url, :state, :as => :admin
+
+  validates :path, :db_name, :url, :presence => true
+  #validates :path, :exist_path => true
 
   after_initialize :default_values
 
@@ -11,7 +22,6 @@ class Instance < ActiveRecord::Base
     self.db_port ||= '3306'
     self.db_user ||= 'root'
     self.db_name ||= 'ecstore'
-    self.url ||= 'http://'
   end
 
   state_machine :initial => :normal do
@@ -35,56 +45,63 @@ class Instance < ActiveRecord::Base
   scope :locked, with_state(:locked)
   scope :error, with_state(:error)
 
-  def do method
+  def do(method, value=nil)
     self.lock
 
-    case method
-      when :clear
-        self.clear
-      when :backup
-        self.backup
-      when :reset_passwd
-        self.reset_passwd
-      else
-        self.available
+    if method == 'clear'
+      self.clear
+    elsif method == 'backup'
+      self.backup
+    elsif method == 'reset_passwd'
+      self.reset_passwd
+    elsif method == 'recovery'
+      self.recovery value
     end
   end
 
   def clear
-    begin
-
-    rescue => ex
-      self.error
-      logger.error ex
-    end
-
+    EcTools.clear self.db_name, self.path
     self.available
+    #begin
+    #  EcTools.clear self.db_name, self.path
+    #  self.available
+    #rescue => ex
+    #  self.error
+    #  logger.error ex
+    #end
   end
 
   def backup
-    begin
-
-    rescue => ex
-      self.error
-      logger.error ex
-    end
-
+    EcTools.backup self.db_name, self.path
     self.available
   end
 
   def reset_passwd
     begin
-
+    #EcTools.reset_passwd self.db_host, self.db_port, self.db_name, self.db_user, self.db_passwd
+      self.available
     rescue => ex
       self.error
       logger.error ex
     end
+  end
 
+  def recovery(record_id = nil)
+    EcTools.recovery self.db_name, self.path, record_id
     self.available
+    #begin
+    #  #throw 'record_id is nil' if record_id.nil?
+    #  EcTools.recovery self.db_name, self.path, record_id
+    #  self.available
+    #rescue => ex
+    #  self.error
+    #  logger.error ex.message
+    #end
   end
 
   handle_asynchronously :clear, :queue => 'instances'
   handle_asynchronously :backup, :queue => 'instances'
   handle_asynchronously :reset_passwd, :queue => 'instances'
+  handle_asynchronously :recovery, :queue => 'instances'
 
 end

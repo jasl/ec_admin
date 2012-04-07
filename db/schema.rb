@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402091419) do
+ActiveRecord::Schema.define(:version => 20120403162503) do
+
+  create_table "backup_records", :force => true do |t|
+    t.string   "name"
+    t.string   "note"
+    t.string   "file"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -32,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120402091419) do
   create_table "instances", :force => true do |t|
     t.string   "name"
     t.string   "url"
+    t.string   "path"
     t.string   "db_host"
     t.integer  "db_port"
     t.string   "db_name"

@@ -1,6 +1,13 @@
 defaults: &defaults
   admin_emails:
     - "jasl123@126.com"
+  ec_tools:
+    http_dir: "/var/www/html"
+    mysqldump_path: "/usr/bin"
+    mysql_path: "/usr/bin"
+    backup_dir: "attachments"
+    db_sa: "root"
+    db_passwd: ""
 
 development:
   <<: *defaults

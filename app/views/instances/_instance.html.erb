@@ -3,7 +3,7 @@
     <td><%= link_to instance.name, instance %></td>
     <td><%= truncate instance.note, :length => 25 %></td>
     <td class="cell_center" style="color: green;">正常</td>
-    <td class="cell_center"><a href="<%= instance.url %>">访问</a></td>
+    <td class="cell_center"><a href="<%= instance.url %>" target="_blank">访问</a></td>
     <td class="cell_center"><input type="checkbox" name="instances[]" value="<%= instance.id %>"/></td>
   <% else %>
     <td><%= instance.name %></td>
